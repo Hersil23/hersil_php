@@ -1,18 +1,12 @@
 <?php
-/**
- * Punto de entrada principal de la aplicación
- * Este archivo se encarga de enrutar todas las peticiones
- */
-
-// Cargar configuración
 require_once __DIR__ . '/../config/config.php';
 
 // Obtener la ruta solicitada
 $request = $_SERVER['REQUEST_URI'];
 $request = str_replace('/hersil_php/public', '', $request);
-$request = strtok($request, '?'); // Eliminar parámetros query string
+$request = strtok($request, '?'); // Remover parámetros GET
 
-// Router simple
+// Router
 switch ($request) {
     case '/':
     case '/home':
@@ -41,14 +35,13 @@ switch ($request) {
         break;
     
     case '/perfil':
-        // Verificar que esté logueado
         if (!isLoggedIn()) {
             redirect('/login');
         }
         require_once __DIR__ . '/../views/profile.php';
         break;
     
-    // Rutas de administrador
+    // Rutas de administración
     case '/admin/usuarios':
         if (!isAdmin()) {
             redirect('/');
@@ -72,7 +65,8 @@ switch ($request) {
     
     default:
         http_response_code(404);
-        echo "<h1>404 - Página no encontrada</h1>";
+        echo '<h1>404 - Página no encontrada</h1>';
+        echo '<p><a href="' . BASE_URL . '/">Volver al inicio</a></p>';
         break;
 }
 ?>

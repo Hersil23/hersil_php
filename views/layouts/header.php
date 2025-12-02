@@ -119,11 +119,11 @@ $current_page = $_SERVER['REQUEST_URI'];
                         </div>
                     <?php else: ?>
                         <!-- Botones Login/Registro -->
-                        <a href="<?php echo BASE_URL; ?>/login" 
+                        <a href="<?php echo BASE_URL; ?>/views/auth/login.php"
                            class="px-4 py-2 rounded-lg text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors">
                             <i class="fas fa-sign-in-alt mr-2"></i>Iniciar Sesión
                         </a>
-                        <a href="<?php echo BASE_URL; ?>/register" 
+                        <a href="<?php echo BASE_URL; ?>/views/auth/register.php" 
                            class="px-4 py-2 bg-blue-800 hover:bg-blue-900 text-white rounded-lg transition-colors">
                             <i class="fas fa-user-plus mr-2"></i>Registrarse
                         </a>

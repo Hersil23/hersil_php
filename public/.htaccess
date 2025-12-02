@@ -1,28 +1,18 @@
-# Habilitar el motor de reescritura
-RewriteEngine On
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /hersil_php/public/
+    
+    # No reescribir archivos y directorios existentes
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    
+    # Reescribir todo lo demás a index.php
+    RewriteRule ^(.*)$ index.php [L,QSA]
+</IfModule>
+```
 
-# Establecer la carpeta base
-RewriteBase /hersil_php/public/
+---
 
-# Si el archivo o directorio existe, mostrarlo directamente
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-
-# Redirigir todas las peticiones a index.php
-RewriteRule ^(.*)$ index.php [QSA,L]
-
-# Ocultar extensiones .php
-RewriteCond %{REQUEST_FILENAME}.php -f
-RewriteRule ^(.*)$ $1.php [L]
-
-# Prevenir acceso directo a archivos .env
-<Files .env>
-    Order allow,deny
-    Deny from all
-</Files>
-
-# Prevenir listado de directorios
-Options -Indexes
-
-# Configuración de errores personalizados
-ErrorDocument 404 /hersil_php/public/index.php
+**Por ahora, prueba acceder directamente con:**
+```
+http://localhost/hersil_php/public/views/auth/login.php
