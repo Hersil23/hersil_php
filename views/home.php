@@ -168,10 +168,10 @@ $categories = $categoryModel->getActiveCategories();
                             </span>
                         </div>
                         
-                    <a href="<?php echo BASE_URL; ?>/public/producto?id=<?php echo $product['id']; ?>" 
-                        class="block w-full bg-blue-800 hover:bg-blue-900 text-white px-4 py-2 md:py-3 rounded-lg transition-colors font-semibold text-sm md:text-base text-center">
-                        <i class="fas fa-eye mr-2"></i>Ver Detalles
-                    </a>
+                        <a href="<?php echo BASE_URL; ?>/public/producto?id=<?php echo $product['id']; ?>" 
+                           class="block w-full bg-blue-800 hover:bg-blue-900 text-white px-4 py-2 md:py-3 rounded-lg transition-colors font-semibold text-sm md:text-base text-center">
+                            <i class="fas fa-eye mr-2"></i>Ver Detalles
+                        </a>
                     </div>
                 </div>
             <?php endforeach; ?>
@@ -196,7 +196,7 @@ $categories = $categoryModel->getActiveCategories();
                 Regístrate ahora y obtén acceso a ofertas exclusivas y los mejores productos del mercado
             </p>
             <a href="<?php echo BASE_URL; ?>/public/register" 
-            class="inline-block bg-white text-blue-900 px-6 md:px-8 py-3 md:py-4 rounded-lg font-bold hover:bg-blue-50 transition-all transform hover:scale-105 shadow-lg text-sm md:text-base">
+               class="inline-block bg-white text-blue-900 px-6 md:px-8 py-3 md:py-4 rounded-lg font-bold hover:bg-blue-50 transition-all transform hover:scale-105 shadow-lg text-sm md:text-base">
                 <i class="fas fa-rocket mr-2"></i>Comenzar Ahora
             </a>
         </div>

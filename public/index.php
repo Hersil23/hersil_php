@@ -30,6 +30,10 @@ switch ($request) {
         require_once __DIR__ . '/../views/products/index.php';
         break;
     
+    case '/producto':
+        require_once __DIR__ . '/../views/products/detail.php';
+        break;
+    
     case '/buscar':
         require_once __DIR__ . '/../views/products/search.php';
         break;
@@ -40,18 +44,6 @@ switch ($request) {
         }
         require_once __DIR__ . '/../views/profile.php';
         break;
-    
-    case '/admin/categorias':
-        require_once __DIR__ . '/../views/admin/categories.php';
-        break;
-
-    case '/admin/productos':
-        require_once __DIR__ . '/../views/admin/products.php';
-        break;
-    
-    case '/producto':
-    require_once __DIR__ . '/../views/products/detail.php';
-    break;
     
     // Rutas de administración
     case '/admin/usuarios':
@@ -78,7 +70,7 @@ switch ($request) {
     default:
         http_response_code(404);
         echo '<h1>404 - Página no encontrada</h1>';
-        echo '<p><a href="' . BASE_URL . '/">Volver al inicio</a></p>';
+        echo '<p><a href="' . BASE_URL . '/public/">Volver al inicio</a></p>';
         break;
 }
 ?>
