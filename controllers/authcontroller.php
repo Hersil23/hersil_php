@@ -21,6 +21,12 @@ class AuthController {
     // Procesar registro
     public function register() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Si ya está logueado, no puede registrarse
+            if (isLoggedIn()) {
+                redirect('/');
+                return;
+            }
+            
             // Obtener y sanitizar datos
             $nombre = sanitize($_POST['nombre'] ?? '');
             $apellido = sanitize($_POST['apellido'] ?? '');
@@ -88,6 +94,12 @@ class AuthController {
     // Procesar login
     public function login() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Si ya está logueado, no puede hacer login de nuevo
+            if (isLoggedIn()) {
+                redirect('/');
+                return;
+            }
+            
             // Obtener datos
             $correo = sanitize($_POST['correo'] ?? '');
             $contrasena = $_POST['contrasena'] ?? '';

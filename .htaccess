@@ -1,0 +1,9 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # Evitar loops - si ya está en public/ no hacer nada
+    RewriteRule ^public/ - [L]
+    
+    # Redirigir todo a public/
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
