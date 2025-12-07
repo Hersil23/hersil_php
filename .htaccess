@@ -1,9 +1,12 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
     
+    # Excluir carpeta controllers del rewrite
+    RewriteRule ^controllers/ - [L]
+    
     # Evitar loops - si ya está en public/ no hacer nada
     RewriteRule ^public/ - [L]
     
-    # Redirigir todo a public/
+    # Redirigir todo lo demás a public/
     RewriteRule ^(.*)$ public/$1 [L]
 </IfModule>

@@ -1,10 +1,40 @@
 <?php
 $page_title = "Registro";
-require_once __DIR__ . '/../layouts/header.php';
 
+// Si ya está logueado, mostrar mensaje
 if (isLoggedIn()) {
-    redirect('/public/');
+    require_once __DIR__ . '/../layouts/header.php';
+    ?>
+    <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-slate-50 dark:bg-slate-900/50">
+        <div class="max-w-md w-full space-y-8">
+            <div class="text-center">
+                <div class="mx-auto w-20 h-20 bg-gradient-to-br from-amber-500 to-orange-500 rounded-2xl flex items-center justify-center mb-6 shadow-lg">
+                    <i class="fas fa-exclamation-triangle text-white text-4xl"></i>
+                </div>
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+                    Ya tienes una sesión activa
+                </h2>
+                <p class="text-slate-600 dark:text-slate-400 mb-8">
+                    Ya has iniciado sesión como <strong><?php echo $_SESSION['user_nombre']; ?></strong>. 
+                    Debes cerrar sesión antes de registrar otra cuenta.
+                </p>
+                <div class="space-y-3">
+                    <a href="<?php echo BASE_URL; ?>/public/" class="block w-full bg-blue-800 hover:bg-blue-900 text-white font-bold py-3 px-4 rounded-lg transition-all">
+                        <i class="fas fa-home mr-2"></i>Ir al inicio
+                    </a>
+                    <a href="<?php echo BASE_URL; ?>/controllers/authcontroller.php?action=logout" class="block w-full bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-900 dark:text-white font-semibold py-3 px-4 rounded-lg transition-all">
+                        <i class="fas fa-sign-out-alt mr-2"></i>Cerrar sesión
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php
+    require_once __DIR__ . '/../layouts/footer.php';
+    exit();
 }
+
+require_once __DIR__ . '/../layouts/header.php';
 ?>
 
 <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-slate-50 dark:bg-slate-900/50">

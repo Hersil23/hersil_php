@@ -1,4 +1,8 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+ini_set('log_errors', 1);
+
 /**
  * AuthController
  * Maneja autenticación: login, registro, logout, recuperar contraseña
@@ -23,7 +27,7 @@ class AuthController {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Si ya está logueado, no puede registrarse
             if (isLoggedIn()) {
-                redirect('/');
+                redirect('/public/');
                 return;
             }
             
@@ -96,7 +100,7 @@ class AuthController {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Si ya está logueado, no puede hacer login de nuevo
             if (isLoggedIn()) {
-                redirect('/');
+                redirect('/public/');
                 return;
             }
             
@@ -138,8 +142,11 @@ class AuthController {
 
     // Logout
     public function logout() {
+        session_start();
+        session_unset();
         session_destroy();
-        redirect('/public/login');
+        header('Location: ' . BASE_URL . '/public/login');
+        exit();
     }
 
     // Enviar código de recuperación
