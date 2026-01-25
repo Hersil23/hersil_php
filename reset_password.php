@@ -9,7 +9,7 @@ try {
     $hash = password_hash($newPassword, PASSWORD_BCRYPT);
 
     $database = new Database();
-    $db = $database->connect();
+    $db = $database->getConnection();
 
     $stmt = $db->prepare("UPDATE usuarios SET contrasena = ? WHERE correo = ?");
     $result = $stmt->execute([$hash, 'herasidesweb@gmail.com']);
