@@ -6,17 +6,13 @@ require_once __DIR__ . '/../config/config.php';
 $request = $_SERVER['REQUEST_URI'];
 
 // Limpiar la ruta segun el entorno
-// En produccion: /productos
-// En local: /hersil_php/public/productos
 if (strpos($request, '/hersil_php/public') !== false) {
-    // Entorno local
     $request = str_replace('/hersil_php/public', '', $request);
 } elseif (strpos($request, '/public') !== false) {
-    // Por si acaso viene con /public/
     $request = str_replace('/public', '', $request);
 }
 
-$request = strtok($request, '?'); // Remover parametros GET
+$request = strtok($request, '?');
 
 // Router principal
 switch ($request) {
@@ -65,6 +61,15 @@ switch ($request) {
         break;
         
     // Rutas de administracion
+    case '/admin':
+    case '/admin/':
+    case '/admin/dashboard':
+        if (!isAdmin()) {
+            redirect('/');
+        }
+        require_once __DIR__ . '/../views/admin/dashboard.php';
+        break;
+        
     case '/admin/usuarios':
         if (!isAdmin()) {
             redirect('/');
