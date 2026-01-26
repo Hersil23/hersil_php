@@ -223,7 +223,7 @@ $csrfToken = Security::generateCSRFToken();
 
 <script>
 const CSRF_TOKEN = '<?php echo $csrfToken; ?>';
-const CONTROLLER_URL = '<?php echo BASE_URL; ?>/controllers/CategoryController.php';
+const CONTROLLER_URL = '<?php echo BASE_URL; ?>/api/categories';
 
 let isEditing = false;
 let currentImageUrl = null;
