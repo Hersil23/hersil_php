@@ -19,9 +19,9 @@ if ($busqueda) {
     $categories = $categoryModel->getAll();
 }
 
+require_once __DIR__ . '/../../utils/Security.php';
 $csrfToken = Security::generateCSRFToken();
 ?>
-
 <div class="bg-slate-50 dark:bg-slate-900/50 min-h-screen py-8">
     <div class="container mx-auto px-4">
         
