@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 /**
  * Controlador de Categorías
  * Maneja las operaciones CRUD de categorías
