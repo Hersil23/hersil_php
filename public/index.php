@@ -90,7 +90,12 @@ switch ($request) {
         }
         require_once __DIR__ . '/../views/admin/products.php';
         break;
+case '/api/categories':
+        require_once __DIR__ . '/../controllers/CategoryController.php';
+        break;
         
+    default:
+        http_response_code(404);        
     default:
         http_response_code(404);
         echo '<h1>404 - Pagina no encontrada</h1>';
