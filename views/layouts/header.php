@@ -22,6 +22,21 @@ $current_page = $_SERVER['REQUEST_URI'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $page_title ?? 'TwistPro'; ?> - Tu Tienda Online</title>
 
+    <!-- Open Graph Meta Tags -->
+    <?php if (isset($og_product)): ?>
+    <meta property="og:type" content="product">
+    <meta property="og:title" content="<?php echo htmlspecialchars($og_product['title']); ?> - TwistPro">
+    <meta property="og:description" content="<?php echo htmlspecialchars($og_product['description']); ?> | Precio: $<?php echo $og_product['price']; ?>">
+    <meta property="og:url" content="<?php echo htmlspecialchars($og_product['url']); ?>">
+    <?php if (!empty($og_product['image'])): ?>
+    <meta property="og:image" content="<?php echo htmlspecialchars($og_product['image']); ?>">
+    <?php endif; ?>
+    <?php else: ?>
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="TwistPro - Tu Tienda Online">
+    <meta property="og:description" content="Explora nuestra amplia selección de productos">
+    <?php endif; ?>
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 

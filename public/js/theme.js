@@ -63,5 +63,63 @@ function updateToggleButton(theme) {
     }
 }
 
-// Exponer función globalmente para usar en botones HTML
+// Compartir producto - copiar enlace al clipboard
+function shareProduct(url, nombre) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(function() {
+            showShareToast('Enlace copiado al portapapeles');
+        }).catch(function() {
+            fallbackCopy(url);
+        });
+    } else {
+        fallbackCopy(url);
+    }
+}
+
+function fallbackCopy(text) {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.style.position = 'fixed';
+    textarea.style.opacity = '0';
+    document.body.appendChild(textarea);
+    textarea.select();
+    try {
+        document.execCommand('copy');
+        showShareToast('Enlace copiado al portapapeles');
+    } catch (e) {
+        showShareToast('No se pudo copiar el enlace', true);
+    }
+    document.body.removeChild(textarea);
+}
+
+// Compartir por WhatsApp
+function shareWhatsApp(url, nombre) {
+    const message = 'Mira este producto: ' + nombre + ' ' + url;
+    const waUrl = 'https://wa.me/?text=' + encodeURIComponent(message);
+    window.open(waUrl, '_blank');
+}
+
+// Mostrar toast de confirmación
+function showShareToast(message, isError) {
+    const existing = document.getElementById('share-toast');
+    if (existing) existing.remove();
+
+    const toast = document.createElement('div');
+    toast.id = 'share-toast';
+    const bgColor = isError
+        ? 'bg-red-600'
+        : 'bg-green-600';
+    toast.className = 'fixed bottom-6 left-1/2 -translate-x-1/2 ' + bgColor + ' text-white px-6 py-3 rounded-lg shadow-lg z-[9999] text-sm font-semibold transition-opacity duration-300';
+    toast.textContent = message;
+    document.body.appendChild(toast);
+
+    setTimeout(function() {
+        toast.style.opacity = '0';
+        setTimeout(function() { toast.remove(); }, 300);
+    }, 2000);
+}
+
+// Exponer funciones globalmente para usar en botones HTML
 window.toggleTheme = toggleTheme;
+window.shareProduct = shareProduct;
+window.shareWhatsApp = shareWhatsApp;

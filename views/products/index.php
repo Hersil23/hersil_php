@@ -145,10 +145,24 @@ $categories = $categoryModel->getActiveCategories();
                                         </span>
                                     </div>
                                     
-                                    <a href="<?php echo BASE_URL; ?>/producto?id=<?php echo $product['id']; ?>" 
+                                    <a href="<?php echo BASE_URL; ?>/producto?id=<?php echo $product['id']; ?>"
                                         class="block w-full bg-blue-800 hover:bg-blue-900 text-white px-4 py-3 rounded-lg transition-colors font-semibold text-center">
                                         <i class="fas fa-eye mr-2"></i>Ver Detalles
                                     </a>
+                                    <div class="flex gap-2 mt-2">
+                                        <button onclick="shareProduct('<?php echo BASE_URL; ?>/producto?id=<?php echo $product['id']; ?>', '<?php echo htmlspecialchars(addslashes($product['nombre']), ENT_QUOTES); ?>')"
+                                                class="flex-1 flex items-center justify-center gap-1 px-3 py-2 text-xs bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors"
+                                                title="Copiar enlace">
+                                            <i class="fas fa-link"></i>
+                                            <span>Copiar</span>
+                                        </button>
+                                        <button onclick="shareWhatsApp('<?php echo BASE_URL; ?>/producto?id=<?php echo $product['id']; ?>', '<?php echo htmlspecialchars(addslashes($product['nombre']), ENT_QUOTES); ?>')"
+                                                class="flex-1 flex items-center justify-center gap-1 px-3 py-2 text-xs bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 rounded-lg hover:bg-green-200 dark:hover:bg-green-900/50 transition-colors"
+                                                title="Compartir por WhatsApp">
+                                            <i class="fab fa-whatsapp"></i>
+                                            <span>WhatsApp</span>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         <?php endforeach; ?>
