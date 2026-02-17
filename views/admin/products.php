@@ -449,16 +449,7 @@ document.getElementById('productForm').addEventListener('submit', async function
         const data = await response.json();
         
         if (data.success) {
-            let msg = data.message;
-            if (data.debug) {
-                msg += '\n\n--- DEBUG ---';
-                msg += '\nImagen 1: ' + (data.debug.imagen_url || 'null');
-                msg += '\nImagen 2: ' + (data.debug.imagen_url_2 || 'null');
-                msg += '\nImagen 3: ' + (data.debug.imagen_url_3 || 'null');
-                msg += '\nArchivos recibidos: ' + JSON.stringify(data.debug.files_received);
-                msg += '\nImagen 2 error: ' + data.debug.imagen_2_error;
-            }
-            alert(msg);
+            alert(data.message);
             location.reload();
         } else {
             alert('Error: ' + data.message);
