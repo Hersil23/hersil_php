@@ -206,7 +206,17 @@ class ProductController {
 
         if ($this->productModel->update()) {
             Security::logAdminAction('update_product', ['id' => $id, 'nombre' => $nombre]);
-            return ['success' => true, 'message' => 'Producto actualizado correctamente'];
+            return [
+                'success' => true,
+                'message' => 'Producto actualizado correctamente',
+                'debug' => [
+                    'imagen_url' => $imagen_url,
+                    'imagen_url_2' => $imagen_url_2,
+                    'imagen_url_3' => $imagen_url_3,
+                    'files_received' => array_keys($_FILES),
+                    'imagen_2_error' => isset($_FILES['imagen_2']) ? $_FILES['imagen_2']['error'] : 'no existe',
+                ]
+            ];
         }
 
         return ['success' => false, 'message' => 'Error al actualizar el producto'];
