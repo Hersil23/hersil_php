@@ -342,6 +342,11 @@ function removeImage(n) {
 
 async function editProduct(id) {
     try {
+        // Limpiar file inputs antes de cargar datos
+        document.getElementById('productImagen').value = '';
+        document.getElementById('productImagen2').value = '';
+        document.getElementById('productImagen3').value = '';
+
         const response = await fetch(`${API_URL}?action=get&id=${id}`);
         const data = await response.json();
 
