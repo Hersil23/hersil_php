@@ -156,6 +156,8 @@ if ($filtro_rol && $filtro_rol !== 'todos') {
 </div>
 
 <script>
+const API_URL = '<?php echo BASE_URL; ?>/api/users';
+
 function viewUser(id) {
     alert('Ver detalles del usuario #' + id + '\n(Funcionalidad pendiente)');
 }
@@ -164,9 +166,33 @@ function editUser(id) {
     alert('Editar usuario #' + id + '\n(Funcionalidad pendiente)');
 }
 
-function deleteUser(id, nombre) {
-    if (confirm('¿Estás seguro de eliminar al usuario "' + nombre + '"?\n\nEsta acción no se puede deshacer.')) {
-        alert('Eliminar usuario #' + id + '\n(Funcionalidad pendiente)');
+async function deleteUser(id, nombre) {
+    if (!confirm('¿Estás seguro de eliminar al usuario "' + nombre + '"?\n\nEsta acción no se puede deshacer.')) {
+        return;
+    }
+
+    try {
+        const formData = new FormData();
+        formData.append('action', 'delete');
+        formData.append('id', id);
+
+        const response = await fetch(API_URL, {
+            method: 'POST',
+            headers: { 'X-Requested-With': 'XMLHttpRequest' },
+            body: formData
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            alert(data.message);
+            location.reload();
+        } else {
+            alert('Error: ' + data.message);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Error al eliminar el usuario');
     }
 }
 </script>

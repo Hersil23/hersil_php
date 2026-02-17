@@ -265,11 +265,74 @@ class UserController {
     }
 }
 
-// Procesar acciones según la petición
-if (isset($_GET['action'])) {
+// Procesar peticiones AJAX (JSON) para API
+if (($_SERVER['REQUEST_METHOD'] === 'POST' || $_SERVER['REQUEST_METHOD'] === 'GET') && isset($_REQUEST['action'])) {
+    $action = $_REQUEST['action'];
+
+    // Check if this is an AJAX/API request
+    $isAjax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
+    $isApi = strpos($_SERVER['REQUEST_URI'], '/api/users') !== false;
+
+    if ($isAjax || $isApi) {
+        $controller = new UserController();
+        $response = ['success' => false, 'message' => 'Acción no válida'];
+
+        switch ($action) {
+            case 'delete':
+                if (!isAdmin()) {
+                    $response = ['success' => false, 'message' => 'No autorizado'];
+                    break;
+                }
+                $id = intval($_POST['id'] ?? 0);
+                if ($id <= 0) {
+                    $response = ['success' => false, 'message' => 'ID inválido'];
+                    break;
+                }
+                if ($id === ($_SESSION['user_id'] ?? 0)) {
+                    $response = ['success' => false, 'message' => 'No puedes eliminar tu propia cuenta desde aquí'];
+                    break;
+                }
+                require_once __DIR__ . '/../models/user.php';
+                $userModel = new User();
+                $userModel->id = $id;
+                if ($userModel->delete($_SESSION['user_id'])) {
+                    $response = ['success' => true, 'message' => 'Usuario eliminado correctamente'];
+                } else {
+                    $response = ['success' => false, 'message' => 'Error al eliminar el usuario'];
+                }
+                break;
+            case 'get':
+                if (!isAdmin()) {
+                    $response = ['success' => false, 'message' => 'No autorizado'];
+                    break;
+                }
+                $id = intval($_GET['id'] ?? 0);
+                $user = $controller->getUserById($id);
+                if ($user) {
+                    $response = ['success' => true, 'data' => $user];
+                } else {
+                    $response = ['success' => false, 'message' => 'Usuario no encontrado'];
+                }
+                break;
+            case 'list':
+                if (!isAdmin()) {
+                    $response = ['success' => false, 'message' => 'No autorizado'];
+                    break;
+                }
+                $users = $controller->listUsers();
+                $response = ['success' => true, 'data' => $users];
+                break;
+        }
+
+        header('Content-Type: application/json');
+        echo json_encode($response);
+        exit;
+    }
+
+    // Non-AJAX form submissions (existing behavior)
     $controller = new UserController();
-    
-    switch ($_GET['action']) {
+
+    switch ($action) {
         case 'update-profile':
             $controller->updateProfile();
             break;

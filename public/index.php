@@ -96,7 +96,10 @@ case '/api/categories':
 case '/api/products':
         require_once __DIR__ . '/../controllers/ProductController.php';
         break;
-        
+case '/api/users':
+        require_once __DIR__ . '/../controllers/usercontroller.php';
+        break;
+
     default:
         http_response_code(404);
         echo '<h1>404 - Pagina no encontrada</h1>';
