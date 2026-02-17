@@ -72,14 +72,29 @@ $product_url = BASE_URL . '/producto?id=' . $product['id'];
                     <?php endif; ?>
                 </div>
                 <?php if (count($images) > 1): ?>
-                <div class="flex gap-3 mt-4">
+                <div class="flex gap-3 mt-4" id="thumbnailsContainer">
                     <?php foreach ($images as $index => $img): ?>
-                    <button onclick="document.getElementById('mainProductImage').src='<?php echo htmlspecialchars($img); ?>'; document.querySelectorAll('.thumb-btn').forEach(b=>b.classList.remove('ring-2','ring-blue-500')); this.classList.add('ring-2','ring-blue-500');"
-                            class="thumb-btn w-20 h-20 rounded-lg overflow-hidden border border-slate-300 dark:border-slate-600 hover:opacity-80 transition-opacity <?php echo $index === 0 ? 'ring-2 ring-blue-500' : ''; ?>">
-                        <img src="<?php echo htmlspecialchars($img); ?>" alt="Imagen <?php echo $index + 1; ?>" class="w-full h-full object-cover">
+                    <button type="button" data-img="<?php echo htmlspecialchars($img); ?>"
+                            class="thumb-btn w-20 h-20 rounded-lg overflow-hidden border-2 cursor-pointer hover:opacity-80 transition-all <?php echo $index === 0 ? 'border-blue-500' : 'border-slate-300 dark:border-slate-600'; ?>">
+                        <img src="<?php echo htmlspecialchars($img); ?>" alt="Imagen <?php echo $index + 1; ?>" class="w-full h-full object-cover pointer-events-none">
                     </button>
                     <?php endforeach; ?>
                 </div>
+                <script>
+                document.getElementById('thumbnailsContainer').addEventListener('click', function(e) {
+                    var btn = e.target.closest('.thumb-btn');
+                    if (!btn) return;
+                    var imgUrl = btn.getAttribute('data-img');
+                    document.getElementById('mainProductImage').src = imgUrl;
+                    var buttons = this.querySelectorAll('.thumb-btn');
+                    for (var i = 0; i < buttons.length; i++) {
+                        buttons[i].classList.remove('border-blue-500');
+                        buttons[i].classList.add('border-slate-300', 'dark:border-slate-600');
+                    }
+                    btn.classList.remove('border-slate-300', 'dark:border-slate-600');
+                    btn.classList.add('border-blue-500');
+                });
+                </script>
                 <?php endif; ?>
             </div>
 
